@@ -41,7 +41,7 @@ class FlowEditSampler():
         5. Also notice that v_target is conditioned on the same noise added to v_src.
         So hallucination based on different noises is avoided.
 
-        6. Finally, step the target_img in the direction of (v_target-v_src)
+        6. Finally, step the target_img in the direction of (v_target-v_src), until t < n_max and t > n_min 
 
         7. Repeat for every timestep
         '''
