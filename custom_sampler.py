@@ -68,5 +68,42 @@ class FlowEditSampler():
         self.scheduler.set_timesteps(num_steps, device=self.device)
         timesteps = self.scheduler.timesteps
 
+        z_fe = x_src.clone() #this is the edit path. intially, same as src latent
+
+        #starting the editing process
+        for i,t in tqdm(enumerate(timesteps)):
+            remaining_steps = num_steps - i
+            if remaining_steps > n_max:
+                continue #wait till we reach desired noise level
+
+
+            t_float = t.item()/1000.0
+            dt = -1 / num_steps #each discrete timestep (from 1 -> 0)
+
+            #CREATE THE NOISY INPUTS FOR SOURCE LATENT
+            noise = torch.randn_like(x_src)
+            z_src_noisy = (1 - t_float) * x_src + t_float * noise
+
+            z_tar_noisy = z_fe + (z_src_noisy - x_src) 
+
+            #get the model predictions of the vector fields
+            v_src = self.get_model_output(z_src_noisy, t, cond_src, cfg_src) #conditioned on source prompt
+            v_tar = self.get_model_output(z_tar_noisy, t, cond_tgt, cfg_target) #conditioned on target prompt
+
+            if remaining_steps > n_min: #at n_min, we stop using this vector field to guide edit path, and use just v_target
+                v_direction = v_tar - v_src
+                #update the edit path
+                z_fe = z_fe + (v_direction * dt)
+            
+            else:
+                #do normal
+                z_fe = z_fe + (v_tar * dt)
+
         
+        return self.decode_latents(z_fe) #decode the edited latent after all these steps
+
+
+            
+
+
 
