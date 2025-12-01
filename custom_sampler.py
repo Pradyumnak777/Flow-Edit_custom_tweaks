@@ -1,11 +1,18 @@
 from diffusers import FlowMatchEulerDiscreteScheduler #ts is the flow sampler used in SD3
 import torch
+from tqdm import tqdm
 
 class FlowEditSampler():
-    def __init__(slef, model): #model is either SD3 or FLUX, whose scheduler is to be changed
-        self.model = model
+    def __init__(self, pipe): #pipeline is either SD3 or FLUX
+        self.pipe = pipe
+        self.scheduler = pipe.scheduler
+        self.device = pipe.device
 
-    def __call__(self, source_img, source_pompt, target_prompt, num_steps = 50, n_min = 0, n_max = 15):
+        print(f"Using Scheduler: {self.scheduler.__class__.__name__}") #should be euler
+
+
+    def __call__(self, source_img, source_prompt, target_prompt, num_steps = 50, n_min = 0, n_max = 15,
+                 cfg_src = 1.5, cfg_target = 5.5):
         '''
         FlowEdit works on the concept of avoiding inversions.
         The authors WANT to draw a line between the source image and the target edit image.
@@ -46,4 +53,20 @@ class FlowEditSampler():
         7. Repeat for every timestep
         '''
 
+        
+        device = source_img.device
+        dtype = source_img.dtype
+
+        #encode src_img to latents using VAE
+        x_src = self.encode_image(source_image)
+
+        #encode the text prompts
+        cond_src = self.encode_prompt(source_prompt)
+        cond_tgt = self.encode_prompt(target_prompt)
+
+        #setting the timesteps acc. to n_min, n_max
+        self.scheduler.set_timesteps(num_steps, device=self.device)
+        timesteps = self.scheduler.timesteps
+
+        
 
