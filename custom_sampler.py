@@ -59,6 +59,7 @@ class FlowEditSampler():
 
         7. Repeat for every timestep
         '''
+        torch.manual_seed(42) #to replicate flow-edit authors'
 
         #encode src_img to latents using VAE
         x_src = self.encode_image(source_img)

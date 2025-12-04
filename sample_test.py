@@ -22,7 +22,7 @@ source_image = Image.open(image_path).convert("RGB").resize((1024, 1024))
 
 # run
 print("Running FlowEdit...")
-result_image = sampler(
+result_image = sampler( #ignoring negative prompts for now..
     source_img=source_image,
     source_prompt="A photo of a cat",  #  source
     target_prompt="A photo of a dog",  # target
