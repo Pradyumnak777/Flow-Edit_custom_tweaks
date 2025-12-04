@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A small brown and white rabbit sitting in a grassy field. The rabbit is surrounded by a variety of white flowers.",
+    "target_prompt": "A small kitten sitting in a grassy field. The kitten is surrounded by a variety of white flowers.",
+    "target_code": "3_kitten",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.623241"
+}

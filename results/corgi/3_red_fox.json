@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A brown and white dog sitting on a dirt ground near a body of water. The dog appears to be enjoying the outdoors, possibly in a park. The dog is wearing a red collar. In the background, there are a few trees, providing a natural setting for the dog''s outdoor adventure.",
+    "target_prompt": "A red fox sitting on a dirt ground near a body of water. The fox appears to be enjoying the outdoors, possibly in a park. The fox is wearing a red collar. In the background, there are a few trees, providing a natural setting for the fox''es outdoor adventure.",
+    "target_code": "3_red_fox",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.543620"
+}

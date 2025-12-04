@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A large pizza with cheese and bits of meat.",
+    "target_prompt": "A large pizza with cheese, pineapple and ham.",
+    "target_code": "3_pineapple_ham",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.647345"
+}

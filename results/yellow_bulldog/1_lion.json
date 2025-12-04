@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A small, yellow, shiny dog figurine positioned in the center of the scene, and it appears to be a decorative piece.",
+    "target_prompt": "A small, yellow, lion figurine positioned in the center of the scene, and it appears to be a decorative piece.",
+    "target_code": "1_lion",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.589196"
+}

@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A STOP! sticker with a red and yellow color scheme which is placed on a white background.",
+    "target_prompt": "A ICCV! sticker with a red and yellow color scheme which is placed on a white background.",
+    "target_code": "3_iccv",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.598108"
+}

@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A stack of gray rocks, laying on top of each other on a brown and gray beach. The rocks are arranged in a pyramid shape, creating an impressive and natural display. The brown and gray beach setting provides a serene and picturesque backdrop for this unique rock formation.",
+    "target_prompt": "A bonsai tree on a brown and gray beach. The brown and gray beach setting provides a serene and picturesque backdrop for this bonsai tree.",
+    "target_code": "4_bonsai_tree",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.595290"
+}

@@ -1,0 +1,13 @@
+{
+    "source_prompt": "The image features a coconut shell filled with water, creating a unique and artistic scene. The water in the coconut shell is splashing, adding to the visual appeal. The coconut shell is placed on a table, next to an apple.",
+    "target_prompt": "The image features a baseball filled with water, creating a unique and artistic scene. The water in the baseball is splashing, adding to the visual appeal. The baseball is placed on a table, next to an apple.",
+    "target_code": "2_baseball",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:23.850901"
+}

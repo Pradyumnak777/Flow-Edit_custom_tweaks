@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A man wearing a white shirt and black shorts, jumping in the air with his left arm raised. He appears to be enjoying the moment and is smiling. The background consists of a cloudy sky, which adds to the overall atmosphere of the scene.",
+    "target_prompt": "A bronze statue of a man jumping in the air with his left arm raised. He appears to be enjoying the moment and is smiling. The background consists of a cloudy sky, which adds to the overall atmosphere of the scene.",
+    "target_code": "2_bronze_statue",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.629130"
+}

@@ -1,0 +1,13 @@
+{
+    "source_prompt": "The image features a coconut shell filled with water, creating a unique and artistic scene. The water in the coconut shell is splashing, adding to the visual appeal. The coconut shell is placed on a table, next to an apple.",
+    "target_prompt": "The image features a giant cup filled with water, creating a unique and artistic scene. The water in the giant cup is splashing, adding to the visual appeal. The giant cup is placed on a table, next to an apple.",
+    "target_code": "3_cup",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.107242"
+}

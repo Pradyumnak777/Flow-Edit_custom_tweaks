@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A lone tree standing in a field at night. The tree reflection can be seen in the water below it. The tree is surrounded by a serene and peaceful atmosphere, with the night sky serving as a beautiful backdrop.",
+    "target_prompt": "A lone tree standing in a field at night with a tent next to it. The tree and the tent reflections can be seen in the water below them.The tree and tent are surrounded by a serene and peaceful atmosphere, with the night sky serving as a beautiful backdrop.",
+    "target_code": "3_tent",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.605292"
+}

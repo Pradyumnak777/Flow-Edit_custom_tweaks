@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A colorful parrot perched on a tree branch. The parrot is predominantly blue, with a mix of red, green, and yellow colors. It sitting comfortably on the branch. The tree itself is filled with green leaves, creating a lush and vibrant backdrop for the parrot.",
+    "target_prompt": "A gray pigeon perched on a tree branch. The pigeon is predominantly gray. It sitting comfortably on the branch. The tree itself is filled with green leaves, creating a lush and vibrant backdrop for the pigeon.",
+    "target_code": "3_gray_pigeon",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.645864"
+}

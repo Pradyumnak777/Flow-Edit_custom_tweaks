@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A small black and brown dog sitting on a lush green field.",
+    "target_prompt": "A small black and brown crochet dog sitting on a lush green field.",
+    "target_code": "3_crochet",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.638764"
+}

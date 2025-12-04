@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A stop sign above a blue sign with arrow pointing up.",
+    "target_prompt": "A sign that says HOME above a blue sign with arrow pointing up.",
+    "target_code": "5_home",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.609708"
+}

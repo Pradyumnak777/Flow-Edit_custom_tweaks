@@ -1,0 +1,13 @@
+{
+    "source_prompt": "Two dogs standing on a grassy hillside. One dog positioned to the right of the other. This dog has light brown spots on his face, legs and tail.",
+    "target_prompt": "Two wolves standing on a grassy hillside. One wolf positioned to the right of the other.",
+    "target_code": "1_wolf",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.643959"
+}

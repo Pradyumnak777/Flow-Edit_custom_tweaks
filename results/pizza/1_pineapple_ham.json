@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A large, cheesy pizza sitting on a wooden pizza board.",
+    "target_prompt": "A large, cheesy pizza, topped with pineapple and ham, sitting on a wooden pizza board.",
+    "target_code": "1_pineapple_ham",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.614280"
+}

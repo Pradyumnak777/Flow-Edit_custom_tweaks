@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A gas station with a white and red sign that reads \"CAFE\" There are several cars parked in front of the gas station, including a white car and a van.",
+    "target_prompt": "A gas station with a white and red sign that reads \"ICCV\" There are several cars parked in front of the gas station, including a white car and a van.",
+    "target_code": "2_iccv",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.631515"
+}

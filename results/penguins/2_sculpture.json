@@ -1,0 +1,13 @@
+{
+    "source_prompt": "Two penguins standing in a lake. They are positioned close to each other, with one penguin on the left side and the other on the right side of the picture.",
+    "target_prompt": "A sculpture of two penguins standing in a lake. They are positioned close to each other, with one penguin on the left side and the other on the right side of the picture.",
+    "target_code": "2_sculpture",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.628542"
+}

@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A colorful parrot perched on top of a tall, brightly colored flower. The parrot is positioned towards the center of the scene, with its vibrant colors contrasting beautifully with the flower''s hues.",
+    "target_prompt": "A glass sculpture of a colorful parrot perched on top of a tall, brightly colored flower. The glass sculpture of the parrot is positioned towards the center of the scene, with its vibrant colors contrasting beautifully with the flower''s hues.",
+    "target_code": "1_glass_sculpture",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.615121"
+}

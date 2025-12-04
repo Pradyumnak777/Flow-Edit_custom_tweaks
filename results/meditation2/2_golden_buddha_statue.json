@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A man sitting on the ground and appears to be in a relaxed position, meditating.",
+    "target_prompt": "A golden sculpture of buddha sitting on the ground and appears to be in a relaxed position, meditating.",
+    "target_code": "2_golden_buddha_statue",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.112276"
+}

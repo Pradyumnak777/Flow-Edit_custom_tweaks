@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A glass of milk placed on a wooden table. The glass is filled with milk, and a straw is inserted into it.",
+    "target_prompt": "A glass of beer placed on a wooden table. The glass is filled with beer, and a straw is inserted into it. The table is surrounded by a grassy area, giving the scene a natural and relaxing atmosphere.",
+    "target_code": "2_beer",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.625942"
+}

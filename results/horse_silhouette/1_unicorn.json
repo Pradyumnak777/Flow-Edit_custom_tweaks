@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A black silhouette of a horse, showcasing its elegant and powerful form. The horse is captured in motion, with its front legs raised and its head held high.",
+    "target_prompt": "A black silhouette of a unicorn, showcasing its elegant and powerful form. The unicorn is captured in motion, with its front legs raised and its head held high.",
+    "target_code": "1_unicorn",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.633277"
+}

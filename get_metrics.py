@@ -1,26 +1,4 @@
-'''
-acc. to the paper following metrics were used:
+from benchmark_functions import lpips_metric, CLIP_I_metric, CLIP_T_metric, dino_metric, dreamsim_metric
 
-1. LPIPS
-2. CLIP-T
-3. CLIP-I
-4. DINO
-5. DreamSim
+#run a loop over the results folder, compare every src and tgt images (also prompts for clip-t)
 
-'''
-
-import lpips
-import open_clip
-
-device = "cuda"
-
-#LPIPS
-lpips_model = lpips.LPIPS(net='vgg').eval().to(device)
-
-#CLIP
-clip_model, _, clip_preprocess = open_clip.create_model_and_transforms(
-    'ViT-B-32', pretrained='openai'
-)
-clip_model = clip_model.eval().to(device)
-
-clip_tokenizer = open_clip.get_tokenizer('ViT-B-32')

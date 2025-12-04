@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A grocery list writing on a piece of brown paper with a black marker, which includes BREAD, EGGS, and MILK. The grocery list is attached to a wall or refrigerator with a magnet. The magnet is red and white, possibly in the shape of a phone booth in London.",
+    "target_prompt": "A grocery list writing on a piece of brown paper with a black marker, which includes ECCV, EGGS, and MILK. The grocery list is attached to a wall or refrigerator with a magnet. The magnet is red and white, possibly in the shape of a phone booth in London.",
+    "target_code": "4_eccv",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.656753"
+}

@@ -1,0 +1,13 @@
+{
+    "source_prompt": "The image features a tall white lighthouse standing prominently on a hill, with a beautiful blue sky in the background. The lighthouse is illuminated by a bright light, making it a prominent landmark in the scene.",
+    "target_prompt": "The image features a space rocket prominently on a hill, with a beautiful blue sky in the background. The space rocket is illuminated by a bright light, making it a prominent landmark in the scene.",
+    "target_code": "1_space_rocket",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.611194"
+}

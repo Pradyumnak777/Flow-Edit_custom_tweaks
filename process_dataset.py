@@ -22,11 +22,19 @@ for entry in data:
 
     for tgt_prompt, tgt_code in zip(entry["target_prompts"], entry["target_codes"]):
         
+        #extract img_name
+        img_name = Path(entry["init_img"]).stem
+        # save using target code for benchmarking later
+        # os.makedirs(f"/results/{tgt_code}", exist_ok=True)
+        results_dir = Path.cwd() / "results" / img_name
+        results_dir.mkdir(parents=True, exist_ok=True)
+
         #checking if it exists (for crashes/resuming)
         out_path = results_dir / f"{tgt_code}.png"
         if out_path.exists():
             print(f"skipping! {tgt_code}.png already exists")
             continue
+        
         print("running edit:", tgt_code)
         print("target prompt:", tgt_prompt)
         print("Running FlowEdit...")
@@ -42,12 +50,7 @@ for entry in data:
             cfg_target=13.5
         )
         end_time = datetime.now()
-        #extract img_name
-        img_name = Path(entry["init_img"]).stem
-        # save using target code for benchmarking later
-        # os.makedirs(f"/results/{tgt_code}", exist_ok=True)
-        results_dir = Path.cwd() / "results" / img_name
-        results_dir.mkdir(parents=True, exist_ok=True)
+        
         result_image.save(results_dir / f"{tgt_code}.png")
 
         #creating metadata for reference

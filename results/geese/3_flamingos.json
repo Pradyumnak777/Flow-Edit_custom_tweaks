@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A flock of geese flying together in the sky. There are several geese, spread across the scene, with some flying higher and others lower. The geese are flying in a cloudy sky.",
+    "target_prompt": "A flock of flamingos flying together in the sky. There are several flamingos, spread across the scene, with some flying higher and others lower. The flamingos are flying in a cloudy sky.",
+    "target_code": "3_flamingos",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.630285"
+}

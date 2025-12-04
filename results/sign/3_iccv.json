@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A large white billboard with a bold message written in black letters. The message reads, \"LOVE IS ALL YOU NEED.\" The billboard is prominently displayed in the scene, capturing the viewer''s attention.",
+    "target_prompt": "A large white billboard with a bold message written in black letters. The message reads, \"ICCV IS ALL YOU NEED.\" The billboard is prominently displayed in the scene, capturing the viewer''s attention.",
+    "target_code": "3_iccv",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.626462"
+}

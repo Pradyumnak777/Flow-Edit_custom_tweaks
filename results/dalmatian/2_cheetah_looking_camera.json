@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A Dalmatian dog sitting on a white background. The dog is wearing a bandana, which adds a touch of color to the scene. The dog is looking up, possibly at something interesting or engaging, with its mouth open.",
+    "target_prompt": "A cheetah sitting on a white background. The cheetah is wearing a bandana, which adds a touch of color to the scene. The cheetah is looking to the camera.",
+    "target_code": "2_cheetah_looking_camera",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.613242"
+}

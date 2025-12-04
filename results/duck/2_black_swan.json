@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A brown duck swimming in a lake. The duck is floating on the surface of the water, surrounded by a few ripples. The duck is preening its feathers. The scene is set against a black background, which emphasizes the duck''s presence in the water.",
+    "target_prompt": "A black swan swimming in a lake. The black swan is floating on the surface of the water, surrounded by a few ripples. The black swan is preening its feathers. The scene is set against a black background, which emphasizes the black swan''s presence in the water.",
+    "target_code": "2_black_swan",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.634768"
+}

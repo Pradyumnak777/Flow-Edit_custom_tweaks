@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A small blue and gray bird perched on a wooden fence or post. The bird is positioned towards the left side of the image",
+    "target_prompt": "A small blue and gray origami bird perched on a wooden fence or post. The origami bird is positioned towards the left side of the image",
+    "target_code": "1_origami_bird",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.615090"
+}

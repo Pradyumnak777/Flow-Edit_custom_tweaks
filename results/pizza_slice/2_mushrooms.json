@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A pizza with thick crust, topped with graded cheese and basil.",
+    "target_prompt": "A pizza with thick crust, topped with graded cheese, basil and mushrooms.",
+    "target_code": "2_mushrooms",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.621609"
+}

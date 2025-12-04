@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A painting of three red flowers, each with a long stem. The painting is done in watercolor, giving it a vibrant appearance",
+    "target_prompt": "A painting of three sunflowers, each with a long stem. The painting is done in watercolor, giving it a vibrant appearance",
+    "target_code": "1_sunflowers",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.647792"
+}

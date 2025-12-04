@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A white horse running through a grassy field. The horse appears to be galloping, creating a sense of motion and energy in the image. The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the horse''s freedom and grace as it moves through the natural environment.",
+    "target_prompt": "A white unicorn running through a grassy field. The unicorn appears to be galloping, creating a sense of motion and energy in the image. The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the unicorn''s freedom and grace as it moves through the natural environment.",
+    "target_code": "1_unicorn",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.668664"
+}

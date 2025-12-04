@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A silhouette of a wolf standing on a rocky cliff, looking up at the moon. The wolf appears to be howling at the moon, creating a captivating scene.",
+    "target_prompt": "A silhouette of a wolf standing on a rocky cliff. The wolf appears to be looking.",
+    "target_code": "3_wolf_looking",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.588760"
+}

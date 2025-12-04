@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A large, white, Japanese castle with a distinctive pagoda-style roof. The castle is surrounded by green trees. The castle is situated on a hill, giving it a majestic appearance.",
+    "target_prompt": "A large, white, Japanese castle made out of lego bricks with a distinctive pagoda-style roof. The lego castle is surrounded by green trees, creating a serene and picturesque scene. The lego castle is situated on a hill, giving it a majestic appearance.",
+    "target_code": "1_lego_castle",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.611494"
+}

@@ -853,7 +853,7 @@
 
 - 
 
-    init_img:  flowedit_data/meditation1.png 
+    init_img:  flowedit_data/meditation2.png 
     source_prompt: A man sitting on the ground and appears to be in a relaxed position, meditating.
 
     target_prompts:

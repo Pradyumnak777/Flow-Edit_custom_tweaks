@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A woman in a white uniform, kicking in the air. She appears to be in the middle of a karate kick, showcasing her skill and agility. The scene takes place outdoors, in a park.",
+    "target_prompt": "A marble statue of a woman kicking in the air. It appears to be in the middle of a karate kick, showcasing her skill and agility. The scene takes place outdoors, in a park.",
+    "target_code": "4_marble_statue",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.620449"
+}

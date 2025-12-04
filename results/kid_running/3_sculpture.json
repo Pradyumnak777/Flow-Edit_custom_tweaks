@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A young boy running through a grassy field. He appears to be enjoying his time outdoors. The field is surrounded by trees, providing a natural and serene environment.",
+    "target_prompt": "A sculpture of a young boy running through a grassy field. He appears to be enjoying his time outdoors. The field is surrounded by trees, providing a natural and serene environment.",
+    "target_code": "3_sculpture",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.618122"
+}

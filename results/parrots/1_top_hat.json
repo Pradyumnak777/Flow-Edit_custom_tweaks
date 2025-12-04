@@ -1,0 +1,13 @@
+{
+    "source_prompt": "Two colorful parrots sitting on a wooden stump or log. They are positioned close to each other, with one parrot on the left side and the other on the right side of the stump. The parrot''s wings have blue feathers and their body is yellow.",
+    "target_prompt": "Two colorful parrots sitting on a wooden stump or log. They are positioned close to each other, with one parrot on the left side and the other on the right side of the stump. The parrot''s wings have blue feathers and their body is yellow. Both parrots have a top hat on their head.",
+    "target_code": "1_top_hat",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.621052"
+}

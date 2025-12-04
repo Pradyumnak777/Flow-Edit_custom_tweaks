@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A glass of milk placed on a wooden table. The glass is filled with milk, and a straw is inserted into it.",
+    "target_prompt": "A glass of milk placed on a wooden table. The glass is filled with milk, and a straw is inserted into it. There is whipped cream on top of the milk.",
+    "target_code": "4_whipped_cream",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.635863"
+}

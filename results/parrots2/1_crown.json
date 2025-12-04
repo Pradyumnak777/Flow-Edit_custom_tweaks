@@ -1,0 +1,13 @@
+{
+    "source_prompt": "Two colorful parrots perched on a rocky surface. The parrots are positioned close to each other, with one parrot on the left side and the other on the right side of the rock. The parrot colors are predominantly red.",
+    "target_prompt": "Two colorful parrots perched on a rocky surface. Both parrots have a crown on their head. The birds are positioned close to each other, with one parrot on the left side and the other on the right side of the rock. The parrot colors are predominantly red.",
+    "target_code": "1_crown",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.619502"
+}

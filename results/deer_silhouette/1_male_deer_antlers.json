@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A silhouette of a deer standing on a grassy bank near a lake. The scene is set during sunset, with the sun casting a warm glow over it.",
+    "target_prompt": "A silhouette of a male deer with beautiful antlers standing on a grassy bank near a lake. The scene is set during sunset, with the sun casting a warm glow over it.",
+    "target_code": "1_male_deer_antlers",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.615034"
+}

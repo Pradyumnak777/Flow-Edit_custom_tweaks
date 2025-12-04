@@ -1,0 +1,13 @@
+{
+    "source_prompt": "Two adorable golden retriever puppies sitting in a grassy field. They are positioned close to each other, with one dog on the left and the other on the right. Both dogs have their mouths open, possibly panting.",
+    "target_prompt": "Two adorable golden retriever puppies laying in a grassy field. They are positioned close to each other, with one dog on the left and the other on the right. Both dogs have their mouths open, possibly panting or enjoying the outdoor environment.",
+    "target_code": "4_laying",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.608300"
+}
