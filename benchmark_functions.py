@@ -16,6 +16,7 @@ import torch.nn.functional as F
 import torchvision.transforms as T
 from dreamsim import dreamsim
 import torch
+from PIL import Image
 
 device = "cuda"
 
@@ -24,6 +25,7 @@ lpips_model = lpips.LPIPS(net='vgg').eval().to(device)
 
 def lpips_metric(src, edit):
     to_lpips_format = T.Compose([
+        T.Resize(256),
         T.ToTensor(),               
         T.Normalize(
             mean=[0.5, 0.5, 0.5],    
@@ -83,8 +85,7 @@ dino_model = timm.create_model(
 ).eval().to(device)
 
 dino_preprocess = T.Compose([
-    T.Resize(256),
-    T.CenterCrop(224),
+    T.Resize(224, 224),
     T.ToTensor(),
     T.Normalize(
         mean=(0.485, 0.456, 0.406),
@@ -117,3 +118,12 @@ def dreamsim_metric(src_img, edit_img):
         dist = dreamsim_model(src, edit)
 
     return dist.item()
+
+
+#general helpers
+
+# def batch_imgs(img_path_list):
+#     batch_imgs = []
+#     for path in img_path_list:
+#         img = Image.open(path).convert("RGB")
+#         batch_imgs.append(img)
