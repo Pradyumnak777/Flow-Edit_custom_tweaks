@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A bicycle parked on the sidewalk in front of a red brick building. The bicycle is positioned close to the door of the building, making it easily accessible for the owner. The building has a red brick exterior, giving it a distinctive appearance.",
+    "target_prompt": "A harley davidson motorcycle parked on the sidewalk in front of a red brick building. The harley davidson motorcycle is positioned close to the door of the building, making it easily accessible for the owner. The building has a red brick exterior, giving it a distinctive appearance.",
+    "target_code": "3_harley_davidson",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.637011"
+}

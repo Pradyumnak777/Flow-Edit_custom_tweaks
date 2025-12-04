@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A majestic castle with a tall, pointed roof, situated on a hillside. The sky above the castle is filled with clouds, creating a dramatic atmosphere. There are several windows on the castle, with some located on the lower levels and others on the upper levels.",
+    "target_prompt": "A majestic castle made out of lego bricks with a tall, pointed roof, situated on a hillside. The sky above the lego castle is filled with clouds, creating a dramatic atmosphere. There are several windows on the lego castle, with some located on the lower levels and others on the upper levels.",
+    "target_code": "1_lego_castle",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.641706"
+}

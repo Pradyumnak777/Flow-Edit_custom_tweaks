@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A serene scene of a lake with a silhouette of a sailboat floating on the water. The silhouette of the boat is positioned in the middle of the lake, slightly to the left. The sun is setting in the background, casting a warm glow over the scene.",
+    "target_prompt": "A serene scene of a lake with a sailboat floating on the water. The sailboat has white sails and red hull. The boat is positioned in the middle of the lake, slightly to the left. The sun is setting in the background, casting a warm glow over the scene.",
+    "target_code": "1_sailboat_white_sails_red_hull",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.640696"
+}

@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A gray cat and a brown dog on a floor, some distance between them. The dog is laying on the floor, while the cat is sitting. The cat is positioned on the left side of the scene, while the dog is on the right side. Both pets looking at the camera.",
+    "target_prompt": "A tiger and a brown bear on a floor, some distance between them. The bear is laying on the floor, while the tiger is sitting. The tiger is positioned on the left side of the scene, while the bear is on the right side. Both animals looking at the camera.",
+    "target_code": "5_tiger_bear",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.647710"
+}

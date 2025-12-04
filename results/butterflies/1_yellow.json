@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A vibrant orange flower with two black and white butterflies perched on it. The butterflies are positioned on opposite sides of the flower, with one butterfly on the left side and the other on the right side. The butterflies appear to be resting or possibly feeding on the flower, creating a captivating scene.",
+    "target_prompt": "A vibrant orange flower with two yellow butterflies perched on it. The butterflies are positioned on opposite sides of the flower, with one butterfly on the left side and the other on the right side. The butterflies appear to be resting or possibly feeding on the flower, creating a captivating scene.",
+    "target_code": "1_yellow",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.667860"
+}

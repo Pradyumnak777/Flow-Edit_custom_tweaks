@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A beautiful purple flower with a white and black butterfly perched on top of it. The butterfly is positioned towards the left side of the flower.",
+    "target_prompt": "A beautiful purple flower with a hummingbird perched on top of it. The hummingbird is positioned towards the right side of the flower.",
+    "target_code": "3_hummingbird",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.650785"
+}

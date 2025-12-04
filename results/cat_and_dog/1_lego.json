@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A dog and a cat sitting together on a sidewalk. The dog is positioned on the left side of the scene, while the cat is on the right side. Both animals appear to be relaxed and enjoying each other''s company.",
+    "target_prompt": "A dog and a cat made out of lego sitting together on a sidewalk. The lego dog is positioned on the left side of the scene, while the lego cat is on the right side. Both animals appear to be relaxed and enjoying each other''s company.",
+    "target_code": "1_lego",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.638049"
+}

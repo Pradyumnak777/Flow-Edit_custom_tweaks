@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A blue-gray Audi car parked in a grassy area. A white dog sitting on the grass, next to the car. A cat laying on the hood of the car.",
+    "target_prompt": "A blue-gray Audi car parked in a grassy area. A Husky dog sitting on the grass, next to the car. A lion cab laying on the hood of the car.",
+    "target_code": "2_husky_lion",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.635236"
+}

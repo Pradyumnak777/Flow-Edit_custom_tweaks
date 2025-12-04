@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A vibrant underwater scene with a clownfish swimming among various coral reefs. The clownfish is positioned towards the left side of the image, surrounded by a diverse array of coral and sea plants.",
+    "target_prompt": "A vibrant underwater scene with a shark swimming among various coral reefs. The shark is positioned towards the left side of the image, surrounded by a diverse array of coral and sea plants.",
+    "target_code": "3_shark",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.678924"
+}

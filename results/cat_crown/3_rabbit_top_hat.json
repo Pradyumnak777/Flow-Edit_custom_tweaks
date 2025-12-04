@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A gray cat sitting on a black cloth, wearing a crown. The crown is placed on the cat''s head.",
+    "target_prompt": "A rabbit sitting on a black cloth, wearing a top hat. The top hat is placed on the rabbit''s head.",
+    "target_code": "3_rabbit_top_hat",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.656936"
+}

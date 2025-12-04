@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A small, fluffy kitten sitting in a grassy field. The kitten is positioned in the center of the scene, surrounded by a field. The kitten appears to be looking at something in the field.",
+    "target_prompt": "A small lion cub sitting in a grassy field. The lion cub is positioned in the center of the scene, surrounded by a field. The lion cub appears to be looking at something in the field.",
+    "target_code": "2_lion_cub",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.659770"
+}

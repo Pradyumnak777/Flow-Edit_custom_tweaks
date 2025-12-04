@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A three-layer cake with white frosting, placed on a wooden table. The cake is adorned with a variety of fruits. The cake is presented on a white plate.",
+    "target_prompt": "A three-layer wedding cake with white frosting, placed on a wooden table. The cake is adorned with a lot of strawberries. The cake is presented on a white plate.",
+    "target_code": "4_strawberries",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.652171"
+}

@@ -1,0 +1,13 @@
+{
+    "source_prompt": "A small, brown owl standing on a patch of grass.",
+    "target_prompt": "A pigeon standing on a patch of grass.",
+    "target_code": "4_pigeon",
+    "params_used": {
+        "num_steps": 50,
+        "n_max": 33,
+        "n_min": 0,
+        "cfg_src": 3.5,
+        "cfg_target": 13.5
+    },
+    "time_taken_seconds": "0:00:24.632730"
+}
