@@ -26,7 +26,7 @@ lpips_model = lpips.LPIPS(net='alex').eval().to(device)
 
 def lpips_metric(src, edit):
     to_lpips_format = T.Compose([
-        # T.Resize((256,256)),
+        T.Resize((256,256)),
         T.ToTensor(),               
         T.Normalize(
             mean=[0.5, 0.5, 0.5],    
@@ -46,9 +46,17 @@ def lpips_metric(src, edit):
 clip_model, _, clip_preprocess = open_clip.create_model_and_transforms(
     'ViT-B-32', pretrained='openai'
 )
-clip_model = clip_model.eval().to(device)
+
+# clip_model, _, clip_preprocess = open_clip.create_model_and_transforms(
+#     "ViT-L-14", pretrained="openai"  #next try with laion
+# )
 
 clip_tokenizer = open_clip.get_tokenizer('ViT-B-32')
+
+# clip_tokenizer = open_clip.get_tokenizer("ViT-L-14")
+
+clip_model = clip_model.eval().to(device)
+
 
 def clip_encode_img(img):
     img = clip_preprocess(img).unsqueeze(0).to(device)  
@@ -86,8 +94,7 @@ dino_model = timm.create_model(
 ).eval().to(device)
 
 dino_preprocess = T.Compose([
-    T.Resize(256, interpolation=T.InterpolationMode.BICUBIC),
-    T.CenterCrop(224),
+    T.Resize(224),
     T.ToTensor(),
     T.Normalize(
         mean=(0.485, 0.456, 0.406),

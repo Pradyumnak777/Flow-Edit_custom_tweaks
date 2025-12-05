@@ -71,6 +71,7 @@ class FlowEditSampler():
         #setting the timesteps acc. to n_min, n_max
         self.scheduler.set_timesteps(num_steps, device=self.device)
         timesteps = self.scheduler.timesteps
+        sigmas = self.scheduler.sigmas
 
         z_fe = x_src.clone() #this is the edit path. intially, same as src latent
 
@@ -81,30 +82,60 @@ class FlowEditSampler():
                 continue #wait till we reach desired noise level
 
 
-            t_float = t.item()/1000.0 #because SD3 uses 1000 timestep convention
-            dt = -1 / num_steps #each discrete timestep (from 1 -> 0). 
+            t_curr = sigmas[i] #because SD3 uses 1000 timestep convention
+            t_i = t / 1000.0
+            if i + 1 < len(timesteps):
+                t_next = sigmas[i + 1]
+                t_i_minus_1 = timesteps[i + 1] / 1000.0
+            else:
+                t_next = sigmas[i + 1]
+                t_i_minus_1 = torch.zeros_like(t_i).to(self.device)
+
+            dt = t_i_minus_1 - t_i
             '''
             this was positive in diffusion models because the convention there seemed to be
             noise(0) and image(1). its the reverse in flow models.
             '''
             #CREATE THE NOISY INPUTS FOR SOURCE LATENT
-            noise = torch.randn_like(x_src) #draws from gaussian noise
-            z_src_noisy = (1 - t_float) * x_src + t_float * noise # eg- 15/1000 = 0.015
+            # noise = torch.randn_like(x_src) #draws from gaussian noise
+            # z_src_noisy = (1 - t_curr) * x_src + t_curr * noise # eg- 15/1000 = 0.015
 
-            z_tar_noisy = z_fe + (z_src_noisy - x_src) 
+            # z_tar_noisy = z_fe + (z_src_noisy - x_src) 
 
-            #get the model predictions of the vector fields
-            v_src = self.get_model_output(z_src_noisy, t, cond_src, cfg_src) #conditioned on source prompt
-            v_tar = self.get_model_output(z_tar_noisy, t, cond_tgt, cfg_target) #conditioned on target prompt
+            # #get the model predictions of the vector fields
+            # v_src = self.get_model_output(z_src_noisy, t, cond_src, cfg_src) #conditioned on source prompt
+            # v_tar = self.get_model_output(z_tar_noisy, t, cond_tgt, cfg_target) #conditioned on target prompt
 
             if remaining_steps > n_min: #at n_min, we stop using this vector field to guide edit path, and use just v_target
+                noise = torch.randn_like(x_src).to(self.device)
+                z_src_noisy = (1 - t_i) * x_src + t_i * noise
+                z_tar_noisy = z_fe + (z_src_noisy - x_src)
+                
+                # #get the model predictions of the vector fields
+                v_src = self.get_model_output(z_src_noisy, t, cond_src, cfg_src) #conditioned on source prompt
+                v_tar = self.get_model_output(z_tar_noisy, t, cond_tgt, cfg_target) #conditioned on target prompt
+                
                 v_direction = v_tar - v_src
                 #update the edit path
-                z_fe = z_fe + (v_direction * dt)
+                z_fe = z_fe.to(torch.float32)
+                z_fe = z_fe + dt * v_direction
+                z_fe = z_fe.to(v_direction.dtype)
             
             else:
                 #do normal
-                z_fe = z_fe + (v_tar * dt)
+                if remaining_steps == n_min:
+                    noise = torch.randn_like(x_src).to(self.device)
+                    self.scheduler._init_step_index(t)
+                    sigma = self.scheduler.sigmas[self.scheduler.step_index]
+                    xt_src = sigma * noise + (1.0 - sigma) * x_src
+                    xt_tar = z_fe + (xt_src - x_src)
+                    z_fe = xt_tar
+                
+                v_tar = self.get_model_output(z_fe, t, cond_tgt, cfg_target)
+
+                z_fe = z_fe.to(torch.float32)
+                z_fe = z_fe + dt * v_tar
+                z_fe = z_fe.to(v_tar.dtype)
 
         
         return self.decode_latents(z_fe) #decode the edited latent after all these steps
@@ -168,7 +199,8 @@ class FlowEditSampler():
         
         latents_input = torch.cat([latents] * 2) #both unconditioned and conditioned need to be run for CFG
         
-        t_input = torch.tensor([t] * 2, device=self.device) #same as above
+        # t_input = torch.tensor([t] * 2, device=self.device) #same as above
+        t_input = t.expand(latents_input.shape[0])
 
         
         vf_pred = self.pipe.transformer(
