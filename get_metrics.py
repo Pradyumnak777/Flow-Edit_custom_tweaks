@@ -40,7 +40,7 @@ for entry in data:
 
 
     #compute metrics for this entry!
-    for target_path, target_prompt in zip(tgt_imgs_path, tgt_prompts):
+    for target_path, target_prompt in zip(tgt_imgs_paths, tgt_prompts):
         target_img = Image.open(target_path).convert("RGB")
 
         #LPIPS metric-

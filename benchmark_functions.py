@@ -21,11 +21,12 @@ from PIL import Image
 device = "cuda"
 
 #LPIPS
-lpips_model = lpips.LPIPS(net='vgg').eval().to(device)
+# lpips_model = lpips.LPIPS(net='vgg').eval().to(device)
+lpips_model = lpips.LPIPS(net='alex').eval().to(device)
 
 def lpips_metric(src, edit):
     to_lpips_format = T.Compose([
-        T.Resize(256),
+        # T.Resize((256,256)),
         T.ToTensor(),               
         T.Normalize(
             mean=[0.5, 0.5, 0.5],    
@@ -85,7 +86,8 @@ dino_model = timm.create_model(
 ).eval().to(device)
 
 dino_preprocess = T.Compose([
-    T.Resize(224, 224),
+    T.Resize(256, interpolation=T.InterpolationMode.BICUBIC),
+    T.CenterCrop(224),
     T.ToTensor(),
     T.Normalize(
         mean=(0.485, 0.456, 0.406),
@@ -112,8 +114,10 @@ dreamsim_model, dreamsim_preprocess = dreamsim(pretrained=True)
 dreamsim_model = dreamsim_model.eval().to(device)
 
 def dreamsim_metric(src_img, edit_img):
-    src = dreamsim_preprocess(src_img).unsqueeze(0).to(device)
-    edit = dreamsim_preprocess(edit_img).unsqueeze(0).to(device)
+    src = dreamsim_preprocess(src_img).to(device)
+    edit = dreamsim_preprocess(edit_img).to(device)
+    src = src.float()
+    edit = edit.float()
     with torch.no_grad():
         dist = dreamsim_model(src, edit)
 

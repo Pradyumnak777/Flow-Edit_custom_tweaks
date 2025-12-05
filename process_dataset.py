@@ -44,7 +44,7 @@ for entry in data:
             source_prompt = source_prompt,  #  source
             target_prompt= tgt_prompt,  # target
             num_steps=50,
-            n_max=33,   # start halfway (step 25)
+            n_max=33,   # 
             n_min=0,    # do it all the way
             cfg_src=3.5,
             cfg_target=13.5
