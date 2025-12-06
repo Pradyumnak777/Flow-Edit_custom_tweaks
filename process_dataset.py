@@ -4,6 +4,14 @@ from PIL import Image
 from load_pipe import load_sd3_pipe
 import json
 from datetime import datetime
+import torch
+
+SEED = 42
+torch.manual_seed(SEED)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(SEED)
+
+
 
 full_path = Path("benchmarking/flowedit.yaml").resolve()
 root_dir = full_path.parent

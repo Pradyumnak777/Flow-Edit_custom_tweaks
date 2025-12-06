@@ -12,6 +12,12 @@ class FlowEditSampler():
         #     self.device = torch.device("cuda")
         # else:
         #     self.device = pipe.device
+        
+        # Helper check to ensure correct device usage even with offloading
+        if torch.cuda.is_available():
+             self.device = torch.device("cuda")
+        else:
+             self.device = pipe.device
 
         print(f"Using Scheduler: {self.scheduler.__class__.__name__}") #should be euler
 
@@ -40,33 +46,64 @@ class FlowEditSampler():
         Steps;
         1. src image is taken back to noise(given by n_max as stated above).
 
-        2. The noisy_target_vector is constructed by: (edit_path + noisy_src_img - src_img). At the start,
+        2. the noisy_target_vector is constructed by: (edit_path + noisy_src_img - src_img). At the start,
         because the edit_path is at the src_img, this is just he noisy_src_img.
         In the later timesteps, this essentially becomes the noise added to the source path, conditioned
         on the source prompt. The edit part is what the euler sampler moves over.
 
-        3. Now, the model is fed the noisy_src_img, conditioned on the source prompt.
+        3. now, the model is fed the noisy_src_img, conditioned on the source prompt.
         Then, it is fed the noisy_target_img, conditioned on the target prompt.
 
-        4. It then predicts the vector fields for both. Because we want to go from src to target, 
+        4. it then predicts the vector fields for both. Because we want to go from src to target, 
         our noise_target_img should move in the direction of the vector field (v_target - v_src)
         SDEdit moves in the direction of v_target, and produces subpar results.
 
-        5. Also notice that v_target is conditioned on the same noise added to v_src.
+        5. also notice that v_target is conditioned on the same noise added to v_src.
         So hallucination based on different noises is avoided.
 
-        6. Finally, step the target_img in the direction of (v_target-v_src), until t < n_max and t > n_min 
+        6. finally, step the target_img in the direction of (v_target-v_src), until t < n_max and t > n_min 
 
-        7. Repeat for every timestep
+        7. repeat for every timestep
         '''
-        torch.manual_seed(42) #to replicate flow-edit authors'
+        # torch.manual_seed(42) # REMOVED: Seed is now handled globally in process_dataset.py
 
         #encode src_img to latents using VAE
         x_src = self.encode_image(source_img)
 
         #encode the text prompts
-        cond_src = self.encode_prompt(source_prompt, neg_prompt_src)
-        cond_tgt = self.encode_prompt(target_prompt, neg_prompt_tar)
+        # FIX: Batch encoding logic to support separate negative prompts and batched forward pass
+        src_prompt_embeds, src_neg_prompt_embeds, src_pooled_embeds, src_neg_pooled_embeds = self.pipe.encode_prompt(
+            prompt=source_prompt,
+            prompt_2=None,
+            prompt_3=None,
+            negative_prompt=neg_prompt_src,
+            device=self.device,
+            do_classifier_free_guidance=True,
+        )
+        
+        tar_prompt_embeds, tar_neg_prompt_embeds, tar_pooled_embeds, tar_neg_pooled_embeds = self.pipe.encode_prompt(
+            prompt=target_prompt,
+            prompt_2=None,
+            prompt_3=None,
+            negative_prompt=neg_prompt_tar,
+            device=self.device,
+            do_classifier_free_guidance=True,
+        )
+        
+        # Concatenate for batched processing: [src_uncond, src_cond, tar_uncond, tar_cond]
+        src_tar_prompt_embeds = torch.cat([
+            src_neg_prompt_embeds, 
+            src_prompt_embeds, 
+            tar_neg_prompt_embeds, 
+            tar_prompt_embeds
+        ], dim=0)
+        
+        src_tar_pooled_embeds = torch.cat([
+            src_neg_pooled_embeds,
+            src_pooled_embeds,
+            tar_neg_pooled_embeds,
+            tar_pooled_embeds
+        ], dim=0)
 
         #setting the timesteps acc. to n_min, n_max
         self.scheduler.set_timesteps(num_steps, device=self.device)
@@ -82,56 +119,67 @@ class FlowEditSampler():
                 continue #wait till we reach desired noise level
 
 
-            t_curr = sigmas[i] #because SD3 uses 1000 timestep convention
-            t_i = t / 1000.0
+            # FIX: Use linear math to match official repo (t/1000) instead of scheduler sigmas
+            t_curr = t.item() / 1000.0 
+            
+            # Calculate dt
             if i + 1 < len(timesteps):
-                t_next = sigmas[i + 1]
-                t_i_minus_1 = timesteps[i + 1] / 1000.0
+                t_next = timesteps[i + 1].item() / 1000.0
             else:
-                t_next = sigmas[i + 1]
-                t_i_minus_1 = torch.zeros_like(t_i).to(self.device)
-
-            dt = t_i_minus_1 - t_i
-            '''
-            this was positive in diffusion models because the convention there seemed to be
-            noise(0) and image(1). its the reverse in flow models.
-            '''
-            #CREATE THE NOISY INPUTS FOR SOURCE LATENT
-            # noise = torch.randn_like(x_src) #draws from gaussian noise
-            # z_src_noisy = (1 - t_curr) * x_src + t_curr * noise # eg- 15/1000 = 0.015
-
-            # z_tar_noisy = z_fe + (z_src_noisy - x_src) 
-
-            # #get the model predictions of the vector fields
-            # v_src = self.get_model_output(z_src_noisy, t, cond_src, cfg_src) #conditioned on source prompt
-            # v_tar = self.get_model_output(z_tar_noisy, t, cond_tgt, cfg_target) #conditioned on target prompt
+                t_next = 0.0
+            dt = t_next - t_curr
 
             if remaining_steps > n_min: #at n_min, we stop using this vector field to guide edit path, and use just v_target
+                # FlowEdit phase with BATCHED computation
                 noise = torch.randn_like(x_src).to(self.device)
-                z_src_noisy = (1 - t_i) * x_src + t_i * noise
+                
+                # Using linear t_curr for mixing matches the official code
+                z_src_noisy = (1 - t_curr) * x_src + t_curr * noise
                 z_tar_noisy = z_fe + (z_src_noisy - x_src)
                 
-                # #get the model predictions of the vector fields
-                v_src = self.get_model_output(z_src_noisy, t, cond_src, cfg_src) #conditioned on source prompt
-                v_tar = self.get_model_output(z_tar_noisy, t, cond_tgt, cfg_target) #conditioned on target prompt
+                # Batch all 4 inputs together [src_uncond, src_cond, tar_uncond, tar_cond]
+                batched_latents = torch.cat([z_src_noisy, z_src_noisy, z_tar_noisy, z_tar_noisy])
+                
+                # Single batched forward pass
+                v_src, v_tar = self.get_model_output_batched(
+                    batched_latents, 
+                    t, 
+                    src_tar_prompt_embeds, 
+                    src_tar_pooled_embeds,
+                    cfg_src,
+                    cfg_target
+                )
                 
                 v_direction = v_tar - v_src
+                
                 #update the edit path
                 z_fe = z_fe.to(torch.float32)
                 z_fe = z_fe + dt * v_direction
                 z_fe = z_fe.to(v_direction.dtype)
             
             else:
-                #do normal
+                #do normal (SDEdit phase)
                 if remaining_steps == n_min:
                     noise = torch.randn_like(x_src).to(self.device)
+                    # For the switch, Official code uses scale_noise (which uses sigma)
+                    # We replicate that logic here
                     self.scheduler._init_step_index(t)
                     sigma = self.scheduler.sigmas[self.scheduler.step_index]
                     xt_src = sigma * noise + (1.0 - sigma) * x_src
                     xt_tar = z_fe + (xt_src - x_src)
                     z_fe = xt_tar
                 
-                v_tar = self.get_model_output(z_fe, t, cond_tgt, cfg_target)
+                # For SDEdit, batch xt_tar 4 times like official code
+                batched_latents = torch.cat([z_fe, z_fe, z_fe, z_fe])
+                
+                _, v_tar = self.get_model_output_batched(
+                    batched_latents,
+                    t,
+                    src_tar_prompt_embeds,
+                    src_tar_pooled_embeds,
+                    cfg_src,
+                    cfg_target
+                )
 
                 z_fe = z_fe.to(torch.float32)
                 z_fe = z_fe + dt * v_tar
@@ -144,45 +192,54 @@ class FlowEditSampler():
     #HELPER funcs!
 
     def encode_image(self, image):
+        dtype = self.pipe.vae.dtype
+        vae_device = self.pipe.vae.device
 
-        #img is on the CPU, model loaded on GPU
-        processed_img = self.pipe.image_processor.preprocess(image)
-        processed_img = processed_img.to(self.pipe.vae.device, dtype=self.pipe.vae.dtype) #send to gpu
+        #image encoding using sd3 VAE
+        # Send input to where the VAE is (CPU or GPU)
+        image = self.pipe.image_processor.preprocess(image).to(vae_device, dtype=dtype)
 
-        with torch.no_grad():
-            posterior = self.pipe.vae.encode(processed_img).latent_dist #gives the conditional probability path, based on input image
-            latents = posterior.sample() * self.pipe.vae.config.scaling_factor #sampling from this conditional path(?)
+        if hasattr(self.pipe.vae, "disable_slicing"):
+            self.pipe.vae.disable_slicing()
+        
+        posterior = self.pipe.vae.encode(image).latent_dist #mean and variance
 
-        return latents
+        latents = posterior.sample()
+
+        if hasattr(self.pipe.vae.config, "shift_factor") and self.pipe.vae.config.shift_factor is not None:
+            shift_factor = self.pipe.vae.config.shift_factor
+        else:
+            shift_factor = 0.0 #
+            
+        if hasattr(self.pipe.vae.config, "scaling_factor"):
+            scaling_factor = self.pipe.vae.config.scaling_factor
+        else:
+            scaling_factor = 1.5305
+
+        # APPLY SHIFT THEN SCALE!! (if u dont do ts it wont replicate!!)
+        latents = (latents - shift_factor) * scaling_factor
+
+        return latents.to(device=self.device, dtype=self.pipe.transformer.dtype)
     
-    def encode_prompt(self, prompt, neg_prompt):
-        #SD3 has three encoders - clip big, clip small, and T5
-        prompts_list = [prompt]
-
-        prompt_embeds, neg_prompt_embeds, pooled_prompt_embeds, neg_pooled_prompt_embeds = self.pipe.encode_prompt(
-            prompt = prompts_list,
-            prompt_2 = None, 
-            prompt_3 = None,
-            negative_prompt = neg_prompt,
-            device = self.device,
-            do_classifier_free_guidance=True,
-        )
-    
-        final_prompt_embeds = torch.cat([neg_prompt_embeds, prompt_embeds], dim=0)
-        final_pooled_prompt_embeds = torch.cat([neg_pooled_prompt_embeds, pooled_prompt_embeds], dim = 0)
-
-        return final_prompt_embeds, final_pooled_prompt_embeds
-
     def decode_latents(self, latents):
-        latents = latents.to(self.device) #just making sure
+        # Move latents to VAE device
+        vae_device = self.pipe.vae.device
+        latents = latents.to(vae_device)
+
+        if hasattr(self.pipe.vae.config, "shift_factor") and self.pipe.vae.config.shift_factor is not None:
+            shift_factor = self.pipe.vae.config.shift_factor
+        else:
+            shift_factor = 0.0
 
         if hasattr(self.pipe.vae.config, "scaling_factor"):
             scaling_factor = self.pipe.vae.config.scaling_factor
         else:
             scaling_factor = self.pipe.vae.config.get("scaling_factor", 1.5305)
-        
-        #do unscaling (we did this during encoding)
-        latents = latents / scaling_factor
+
+        #do unscaling (we did this during encoding) and shifting
+        latents = (latents / scaling_factor) + shift_factor
+
+        latents = latents.to(self.pipe.vae.device, dtype=self.pipe.vae.dtype)
 
         with torch.no_grad():
             image_tensor = self.pipe.vae.decode(latents, return_dict=False)[0] #tuple is returned
@@ -191,29 +248,33 @@ class FlowEditSampler():
 
         return image
 
-    def get_model_output(self, latents, t, conditioning, cfg_scale): # 't' is the timestep input to model, acts as signal
+    def get_model_output_batched(self, batched_latents, t, prompt_embeds, pooled_embeds, 
+                                  cfg_src, cfg_tar):
         """
-        will return the predicted the vector field
+        Batched computation matching official implementation
+        Input: [src_uncond, src_cond, tar_uncond, tar_cond]
+        Output: v_src, v_tar (both with CFG applied)
         """
-        prompt_embeds, pooled_prompt_embeds = conditioning #will get this from encode_prompt() helper
-        
-        latents_input = torch.cat([latents] * 2) #both unconditioned and conditioned need to be run for CFG
-        
-        # t_input = torch.tensor([t] * 2, device=self.device) #same as above
-        t_input = t.expand(latents_input.shape[0])
+        # Ensure transformer is on GPU
+        if hasattr(self.pipe.transformer, "device") and self.pipe.transformer.device.type != "cuda":
+             self.pipe.transformer.to(self.device)
 
+        t_input = t.expand(batched_latents.shape[0])
         
-        vf_pred = self.pipe.transformer(
-            hidden_states=latents_input,
-            timestep=t_input,
-            encoder_hidden_states=prompt_embeds,
-            pooled_projections=pooled_prompt_embeds,
-            return_dict=False
-        )[0]
-
-        v_uncond, v_cond = vf_pred.chunk(2) #'_encode_prompt' prepares the null conditioned text input too, along with caption/prompt
-    
-        v_pred = v_uncond + cfg_scale * (v_cond - v_uncond)
+        with torch.no_grad():
+            vf_pred = self.pipe.transformer(
+                hidden_states=batched_latents,
+                timestep=t_input,
+                encoder_hidden_states=prompt_embeds,
+                pooled_projections=pooled_embeds,
+                return_dict=False
+            )[0]
         
-        return v_pred
-
+        # Chunk into 4 parts
+        src_uncond, src_cond, tar_uncond, tar_cond = vf_pred.chunk(4)
+        
+        # Apply CFG separately for source and target
+        v_src = src_uncond + cfg_src * (src_cond - src_uncond)
+        v_tar = tar_uncond + cfg_tar * (tar_cond - tar_uncond)
+        
+        return v_src, v_tar
