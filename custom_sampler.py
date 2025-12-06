@@ -1,6 +1,8 @@
-from diffusers import FlowMatchEulerDiscreteScheduler #ts is the flow sampler used in SD3
+# from diffusers import FlowMatchEulerDiscreteScheduler #ts is the flow sampler used in SD3
 import torch
 from tqdm import tqdm
+from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion import retrieve_timesteps
+
 
 class FlowEditSampler():
     def __init__(self, pipe): #pipeline is either SD3 or FLUX
@@ -106,9 +108,13 @@ class FlowEditSampler():
         ], dim=0)
 
         #setting the timesteps acc. to n_min, n_max
-        self.scheduler.set_timesteps(num_steps, device=self.device)
-        timesteps = self.scheduler.timesteps
-        sigmas = self.scheduler.sigmas
+        timesteps, T_steps = retrieve_timesteps(
+            self.scheduler,
+            num_steps,
+            self.device,
+            timesteps=None
+        )
+        self.pipe._num_timesteps = len(timesteps)  
 
         z_fe = x_src.clone() #this is the edit path. intially, same as src latent
 
@@ -119,10 +125,10 @@ class FlowEditSampler():
                 continue #wait till we reach desired noise level
 
 
-            # FIX: Use linear math to match official repo (t/1000) instead of scheduler sigmas
+            # Fix-!: Use linear math to match official repo (t/1000) instead of scheduler sigmas
             t_curr = t.item() / 1000.0 
             
-            # Calculate dt
+            # find dt
             if i + 1 < len(timesteps):
                 t_next = timesteps[i + 1].item() / 1000.0
             else:
@@ -204,7 +210,7 @@ class FlowEditSampler():
         
         posterior = self.pipe.vae.encode(image).latent_dist #mean and variance
 
-        latents = posterior.sample()
+        latents = posterior.mode()
 
         if hasattr(self.pipe.vae.config, "shift_factor") and self.pipe.vae.config.shift_factor is not None:
             shift_factor = self.pipe.vae.config.shift_factor
