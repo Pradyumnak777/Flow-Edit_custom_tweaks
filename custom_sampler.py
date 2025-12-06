@@ -114,13 +114,13 @@ class FlowEditSampler():
             self.device,
             timesteps=None
         )
-        self.pipe._num_timesteps = len(timesteps)  
+        self.pipe._num_timesteps = T_steps
 
         z_fe = x_src.clone() #this is the edit path. intially, same as src latent
 
         #starting the editing process
         for i,t in tqdm(enumerate(timesteps)):
-            remaining_steps = num_steps - i
+            remaining_steps = T_steps - i
             if remaining_steps > n_max:
                 continue #wait till we reach desired noise level
 
